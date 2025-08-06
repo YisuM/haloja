@@ -1,2 +1,2 @@
 # haloja
-Hostinger clon
+Hostinger clon for testing and learning
