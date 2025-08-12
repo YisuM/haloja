@@ -5,6 +5,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { cn } from "@/lib/utils";
 import { Server } from "lucide-react";
 import ThemeToggle from "./ThemToggle";
+import Link from "next/link";
 
 export default async function HeaderBar() {
     const { getUser } = getKindeServerSession();
@@ -14,15 +15,15 @@ export default async function HeaderBar() {
       <header className="bg-gray-900 border-b border-gray-800 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
-            <div className="flex items-center">
+            <Link href={"/"} className="flex items-center cursor-pointer">
               <Server className="h-8 w-8 text-emerald-400 mr-3" />
               <span className="text-2xl font-bold text-white font-serif">Haloja Cloud</span>
-            </div>
+            </Link>
             <nav className="hidden md:flex space-x-8">
               <a href="#features" className="text-white hover:text-emerald-400 transition-colors">
                 Features
               </a>
-              <a href="#pricing" className="text-white hover:text-emerald-400 transition-colors">
+              <a href="/pricing" className="text-white hover:text-emerald-400 transition-colors">
                 Pricing
               </a>
               <a href="#support" className="text-white hover:text-emerald-400 transition-colors">
