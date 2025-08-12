@@ -1,14 +1,7 @@
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { redirect } from "next/navigation";
-
+import { getUser } from "@/dal/user/get-user";
 export default async function Dashboard() {
 
-    const { getUser } = getKindeServerSession();
-    const user = await getUser();
-
-    if (!user) {
-        return redirect("/api/auth/login");
-    }
+    await getUser();
 
     return (
         <div>
