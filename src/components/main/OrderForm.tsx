@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-
+import { toast } from "react-toastify"
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -16,25 +16,30 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
-const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-})
+import { orderFormSchema } from "@/schema/order/orderFormSchema"
+
 export function OrderForm() {
     // 1. Define your form.
-    const form = useForm<z.infer<typeof formSchema>>({
-      resolver: zodResolver(formSchema),
+    const form = useForm<z.infer<typeof orderFormSchema>>({
+      resolver: zodResolver(orderFormSchema),
       defaultValues: {
         username: "",
       },
     })
    
     // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof formSchema>) {
+    function onSubmit(values: z.infer<typeof orderFormSchema>) {
       // Do something with the form values.
       // ✅ This will be type-safe and validated.
       console.log(values)
+      const result = orderFormSchema.safeParse(values);
+      if (!result.success) {
+        console.error(result.error);
+        alert("Validation failed. Please check your input.");
+        toast.error("Validation failed. Please check your input.");
+        return;
+      }
+      toast.success("Form submitted successfully!");
     }
 
     return (
