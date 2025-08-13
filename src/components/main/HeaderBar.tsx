@@ -13,7 +13,7 @@ export default async function HeaderBar() {
 
     return (
       <header className="bg-gray-900 border-b border-gray-800 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <Link href={"/"} className="flex items-center cursor-pointer">
               <Server className="h-8 w-8 text-emerald-400 mr-3" />
