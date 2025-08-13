@@ -19,3 +19,10 @@ model test {
   email String  @unique
   name  String?
 }
+
+model Orders {
+  id           String   @id @default(uuid())
+  requestAt    DateTime @default(now())
+  typeOfServer String
+  userId       String   // Kinde user id
+}
