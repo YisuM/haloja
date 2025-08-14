@@ -100,8 +100,8 @@ export default function HomePage() {
                   ))}
                 </div>
                 <p className="text-gray-700 dark:text-foreground mb-6 leading-relaxed">
-                  "Migration was seamless and our site performance improved dramatically. The support team is incredibly
-                  knowledgeable."
+                  Migration was seamless and our site performance improved dramatically. The support team is incredibly
+                  knowledgeable.
                 </p>
                 <div className="flex items-center">
                   <div className="w-12 h-12 bg-emerald-100 dark:bg-muted rounded-full flex items-center justify-center mr-4">
@@ -123,8 +123,8 @@ export default function HomePage() {
                   ))}
                 </div>
                 <p className="text-gray-700 dark:text-foreground mb-6 leading-relaxed">
-                  "Finally found a hosting provider that understands WordPress. Zero downtime in 8 months of hosting
-                  with them."
+                  Finally found a hosting provider that understands WordPress. Zero downtime in 8 months of hosting
+                  with them.
                 </p>
                 <div className="flex items-center">
                   <div className="w-12 h-12 bg-emerald-100 dark:bg-muted rounded-full flex items-center justify-center mr-4">
@@ -146,8 +146,8 @@ export default function HomePage() {
                   ))}
                 </div>
                 <p className="text-gray-700 dark:text-foreground mb-6 leading-relaxed">
-                  "The dashboard is intuitive and the automated backups give us peace of mind. Highly recommend for any
-                  CMS project."
+                  The dashboard is intuitive and the automated backups give us peace of mind. Highly recommend for any
+                  CMS project.
                 </p>
                 <div className="flex items-center">
                   <div className="w-12 h-12 bg-emerald-100 dark:bg-muted rounded-full flex items-center justify-center mr-4">
