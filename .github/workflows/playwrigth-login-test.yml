@@ -17,25 +17,28 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      # 2️⃣ Configurar Node.js y habilitar corepack/pnpm
+      # 2️⃣ Configurar Node.js con caché
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 22
           cache: 'pnpm'
 
-      - name: Enable pnpm
-        run: corepack enable && corepack prepare pnpm@latest --activate
+      # 3️⃣ Instalar pnpm correctamente
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10.6 # o la que uses en el proyecto
 
-      # 3️⃣ Instalar dependencias con caché
+      # 4️⃣ Instalar dependencias usando caché
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # 4️⃣ Bundle optimizado con navegadores Playwright listos
+      # 5️⃣ Instalar Playwright browsers optimizado
       - name: Setup Playwright
         uses: microsoft/playwright-github-action@v1
 
-      # 5️⃣ Ejecutar tests
+      # 6️⃣ Ejecutar tests con variables de entorno desde secrets
       - name: Run Playwright tests
         run: pnpm exec playwright test
         env:
@@ -43,7 +46,7 @@ jobs:
           TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
           TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
 
-      # 6️⃣ Subir reporte HTML como artefacto
+      # 7️⃣ Subir el reporte HTML
       - name: Upload Playwright HTML Report
         uses: actions/upload-artifact@v4
         with:
