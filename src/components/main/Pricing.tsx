@@ -224,7 +224,7 @@ export default function PricingPage() {
                 Do you offer a money-back guarantee?
               </h3>
               <p className="text-slate-600 dark:text-slate-300">
-                We offer a 30-day money-back guarantee on all plans. If you're not satisfied, we'll refund your payment
+                We offer a 30-day money-back guarantee on all plans. If you are not satisfied, we will refund your payment
                 in full.
               </p>
             </div>
@@ -233,7 +233,7 @@ export default function PricingPage() {
                 What happens if I exceed my bandwidth limit?
               </h3>
               <p className="text-slate-600 dark:text-slate-300">
-                We'll notify you before you reach your limit. You can upgrade your plan or purchase additional bandwidth
+                We will notify you before you reach your limit. You can upgrade your plan or purchase additional bandwidth
                 as needed.
               </p>
             </div>
