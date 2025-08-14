@@ -10,33 +10,40 @@ on:
 
 jobs:
   test-login:
+    # El job se ejecuta dentro del contenedor oficial de Playwright (incluye navegadores y deps)
     runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.54.2-noble  # <- REEMPLAZA con la versión que coincida con la de tu repo
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: Setup Node.js (inside container)
+        uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 20
+          cache: 'pnpm'
 
-      - name: Install pnpm
-        run: corepack enable && corepack prepare pnpm@latest --activate
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          # opcional: versión; si se omite se toma package.json packageManager
+          # version: 9
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # ⚡️ Bundle optimizado: instala navegadores y deps de Playwright en segundos
-      - name: Setup Playwright
-        uses: microsoft/playwright-github-action@v1
+      # NO ejecutar `npx playwright install --with-deps` ni usar microsoft/playwright-github-action
+      # porque el contenedor ya trae las dependencias del sistema y los navegadores
 
       - name: Run Playwright tests
-        run: pnpm exec playwright test
+        run: pnpm exec playwright test --reporter=list
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
           TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
           TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
+          # añade aquí cualquier secret más que uses (KINDE_* etc.)
 
       - name: Upload Playwright HTML Report
         uses: actions/upload-artifact@v4
