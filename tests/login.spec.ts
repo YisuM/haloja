@@ -43,6 +43,10 @@ test('Login with Kinde Auth', async ({ page }) => {
 import { test, expect } from '@playwright/test';
 
 test('Login with Kinde Auth', async ({ page }) => {
+
+  // Verificar que las variables de entorno están definidas
+  console.log('BASE_URL:', process.env.BASE_URL);
+  console.log('TEST_USER_EMAIL:', process.env.TEST_USER_EMAIL);
   // 1️⃣ Ir a la app
   await page.goto(process.env.BASE_URL!);
 
