@@ -13,23 +13,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Clonar el repositorio
       - name: Checkout repo
         uses: actions/checkout@v3
 
+      # 2️⃣ Configurar Node.js y habilitar corepack/pnpm
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 22
+          cache: 'pnpm'
 
-      - name: Install pnpm
+      - name: Enable pnpm
         run: corepack enable && corepack prepare pnpm@latest --activate
 
+      # 3️⃣ Instalar dependencias con caché
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
-      - name: Install Playwright browsers
-        run: pnpm exec playwright install --with-deps
+      # 4️⃣ Bundle optimizado con navegadores Playwright listos
+      - name: Setup Playwright
+        uses: microsoft/playwright-github-action@v1
 
+      # 5️⃣ Ejecutar tests
       - name: Run Playwright tests
         run: pnpm exec playwright test
         env:
@@ -37,6 +43,7 @@ jobs:
           TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
           TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
 
+      # 6️⃣ Subir reporte HTML como artefacto
       - name: Upload Playwright HTML Report
         uses: actions/upload-artifact@v4
         with:
