@@ -19,11 +19,9 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20
-          cache: 'pnpm'   # cachea el store de pnpm
+          node-version: 22
 
-      # ✅ Tu paso original con corepack (lo recuperamos)
-      - name: Enable pnpm (corepack)
+      - name: Install pnpm
         run: corepack enable && corepack prepare pnpm@latest --activate
 
       - name: Install dependencies
@@ -41,7 +39,7 @@ jobs:
           TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
 
       - name: Upload Playwright HTML Report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: playwright-report
           path: playwright-report/
