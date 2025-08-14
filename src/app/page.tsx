@@ -1,7 +1,7 @@
 import Footer from "@/components/main/Footer"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { CheckCircle, Server, Shield, Users, Zap } from "lucide-react"
+import { CheckCircle, Shield, Users, Zap } from "lucide-react"
 
 export default function HomePage() {
   return (

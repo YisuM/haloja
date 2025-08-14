@@ -4,6 +4,7 @@ import { getUser } from "@/dal/user/get-user";
 export default async function CreateServer() {
     // Ensure user is authenticated before rendering the form
     const user = await getUser();
+    console.log(user);
 
     return (
         <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col items-center justify-center">

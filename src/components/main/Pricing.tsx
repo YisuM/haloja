@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Check, X, Zap, Shield, Globe, Headphones } from "lucide-react"
-import Link from "next/link"
+
 import Footer from "./Footer"
 
 export default function PricingPage() {

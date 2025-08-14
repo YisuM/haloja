@@ -1,5 +1,5 @@
 import { getUser } from "@/dal/user/get-user";
-import Order from "@/components/main/Order";
+//import Order from "@/components/main/Order";
 import Link from "next/link";
 import Image from "next/image";
 
