@@ -48,13 +48,13 @@ test('Login with Kinde Auth', async ({ page }) => {
   console.log('BASE_URL:', process.env.BASE_URL);
   console.log('TEST_USER_EMAIL:', process.env.TEST_USER_EMAIL);
   // 1️⃣ Ir a la app
-  await page.goto(process.env.BASE_URL!);
+  await page.goto(process.env.BASE_URL!, { timeout: 60000 });
 
   // 2️⃣ Click en Sign In
   await page.click('text=Sign In');
 
   // 3️⃣ Esperar que cargue Kinde (pantalla de email)
-  await page.waitForURL(/kinde\.com/);
+  await page.waitForURL(/kinde\.com/, { timeout: 60000 });
 
   // 4️⃣ Llenar email
   await page.fill('#sign_up_sign_in_credentials_p_email', process.env.TEST_USER_EMAIL!);
@@ -65,7 +65,7 @@ test('Login with Kinde Auth', async ({ page }) => {
   //await  page.click('button[type="submit"]:has-text("Continue")'),
   await page.click('button[data-kinde-button="true"][data-kinde-button-variant="primary"]');
 
-  await  page.waitForURL(/kinde\.com/); // espera que la URL tenga verify_password (o algo único del paso de contraseña)
+  await  page.waitForURL(/kinde\.com/, { timeout: 60000 }); // espera que la URL tenga verify_password (o algo único del paso de contraseña)
 
   await page.screenshot({ 
     path: `screenshots/email_step_${Date.now()}.png`, 
