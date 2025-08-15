@@ -36,6 +36,22 @@ jobs:
       # NO ejecutar `npx playwright install --with-deps` ni usar microsoft/playwright-github-action
       # porque el contenedor ya trae las dependencias del sistema y los navegadores
 
+      - name: Wait for BASE_URL to be ready
+        run: |
+          echo "Waiting for $BASE_URL to respond..."
+          for i in {1..30}; do
+            if curl -s -o /dev/null -w "%{http_code}" "$BASE_URL" | grep -q "200"; then
+              echo "✅ $BASE_URL is up!"
+              exit 0
+            fi
+            echo "⏳ Waiting... ($i/30)"
+            sleep 2
+          done
+          echo "❌ Timeout waiting for $BASE_URL"
+          exit 1
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+
       - name: Run Playwright tests
         run: pnpm exec playwright test --reporter=list
         env:
