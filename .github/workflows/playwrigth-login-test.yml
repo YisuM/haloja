@@ -38,14 +38,22 @@ jobs:
 
       - name: Wait for BASE_URL to be ready
         run: |
-          echo "Waiting for $BASE_URL to respond..."
-          for i in {1..30}; do
-            if curl -s -o /dev/null -w "%{http_code}" "$BASE_URL" | grep -q "200"; then
-              echo "✅ $BASE_URL is up!"
-              exit 0
-            fi
-            echo "⏳ Waiting... ($i/30)"
-            sleep 2
+          echo "Waiting for \$BASE_URL to respond..."
+          MAX_TRIES=60
+          SLEEP_SECONDS=2
+          i=1
+          while [ "$i" -le "$MAX_TRIES" ]; do
+            # -L sigue redirects; devolvemos solo el status code
+            status=$(curl -s -o /dev/null -w "%{http_code}" -L "$BASE_URL")
+            echo "Attempt $i/$MAX_TRIES -> HTTP $status"
+            case "$status" in
+              2*|3*)
+                echo "✅ $BASE_URL is up!"
+                exit 0
+                ;;
+            esac
+            sleep "$SLEEP_SECONDS"
+            i=$((i+1))
           done
           echo "❌ Timeout waiting for $BASE_URL"
           exit 1
