@@ -48,14 +48,27 @@ test('Login with Kinde Auth', async ({ page }) => {
   console.log('BASE_URL:', process.env.BASE_URL);
   console.log('TEST_USER_EMAIL:', process.env.TEST_USER_EMAIL);
   // 1️⃣ Ir a la app
-  await page.goto(process.env.BASE_URL!, { timeout: 60000 });
+  await page.goto(process.env.BASE_URL!);
+
+  await page.screenshot({ 
+    path: `screenshots/email_step_${Date.now()}.png`, 
+    fullPage: true 
+  });
 
   // 2️⃣ Click en Sign In
   await page.click('text=Sign In');
 
+  await page.screenshot({ 
+    path: `screenshots/email_step_${Date.now()}.png`, 
+    fullPage: true 
+  });
   // 3️⃣ Esperar que cargue Kinde (pantalla de email)
-  await page.waitForURL(/kinde\.com/, { timeout: 60000 });
+  await page.waitForURL(/kinde\.com/);
 
+  await page.screenshot({ 
+    path: `screenshots/email_step_${Date.now()}.png`, 
+    fullPage: true 
+  });
   // 4️⃣ Llenar email
   await page.fill('#sign_up_sign_in_credentials_p_email', process.env.TEST_USER_EMAIL!);
 
@@ -65,7 +78,7 @@ test('Login with Kinde Auth', async ({ page }) => {
   //await  page.click('button[type="submit"]:has-text("Continue")'),
   await page.click('button[data-kinde-button="true"][data-kinde-button-variant="primary"]');
 
-  await  page.waitForURL(/kinde\.com/, { timeout: 60000 }); // espera que la URL tenga verify_password (o algo único del paso de contraseña)
+  await  page.waitForURL(/kinde\.com/); // espera que la URL tenga verify_password (o algo único del paso de contraseña)
 
   await page.screenshot({ 
     path: `screenshots/email_step_${Date.now()}.png`, 
@@ -74,14 +87,22 @@ test('Login with Kinde Auth', async ({ page }) => {
     
   // 6️⃣ Llenar contraseña
   await page.fill('#verify_password_p_password', process.env.TEST_USER_PASSWORD!);
+  await page.screenshot({ 
+    path: `screenshots/email_step_${Date.now()}.png`, 
+    fullPage: true 
+  });
 
   // 7️⃣ Click en Continue (segunda pantalla) y esperar redirección a tu app
   await  page.waitForURL(/kinde\.com/);
   await  page.click('button[type="submit"]:has-text("Continue")');
+  await page.screenshot({ 
+    path: `screenshots/email_step_${Date.now()}.png`, 
+    fullPage: true 
+  });
   
 
   // 8️⃣ Verificar login
-  await expect(page.locator('text=Dashboard')).toBeVisible();
+  await expect(page.locator('text=Dashboard')).toBeVisible({timeout: 10000});
   await page.screenshot({ 
     path: `screenshots/email_step_${Date.now()}.png`, 
     fullPage: true 
