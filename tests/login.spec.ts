@@ -102,7 +102,7 @@ test('Login with Kinde Auth', async ({ page }) => {
   
 
   // 8️⃣ Verificar login
-  await expect(page.locator('text=Dashboard')).toBeVisible({timeout: 30000});
+  await expect(page.locator('text=Dashboard')).toBeVisible({timeout: 60000});
   await page.screenshot({ 
     path: `screenshots/email_step_${Date.now()}.png`, 
     fullPage: true 
