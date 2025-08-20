@@ -1,15 +1,17 @@
+"use client";
 import Image from "next/image";
 import { RegisterLink, LoginLink, LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import { buttonVariants } from "../ui/button";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+/* import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"; */
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { cn } from "@/lib/utils";
 import { Server } from "lucide-react";
 import ThemeToggle from "./ThemToggle";
 import Link from "next/link";
 
-export default async function HeaderBar() {
-    const { getUser } = getKindeServerSession();
-    const user = await getUser();
+export default function HeaderBar() {
+    const { getUser } = useKindeBrowserClient();
+    const user = getUser();
 
     return (
       <header className="bg-gray-900 border-b border-gray-800 shadow-sm">
