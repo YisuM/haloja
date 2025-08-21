@@ -16,4 +16,5 @@ export interface ServerType {
     public_ip: string
     date_string: string
     icon: string
+    pending?: boolean // Indica si es un servidor pendiente
 }
