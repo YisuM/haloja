@@ -25,4 +25,5 @@ model Orders {
   requestAt    DateTime @default(now())
   typeOfServer String
   userId       String   // Kinde user id
+  status       String   @default("pending") // pending, deploying, completed, failed
 }

@@ -38,19 +38,31 @@ export default function OrderForm() {
     })
 
     // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof orderFormSchema>) {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
-        console.log(values)
+    async function onSubmit(values: z.infer<typeof orderFormSchema>) {
         const result = orderFormSchema.safeParse(values);
         if (!result.success) {
             console.error(result.error);
-            /* alert(...)*/
             toast.error("Validation failed. Please check your input.");
             return;
         }
-        toast.success("Form submitted successfully!");
-
+    
+        try {
+            const res = await fetch("/api/orders", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(result.data),
+            });
+    
+            if (!res.ok) throw new Error("Error creando el pedido");
+    
+            toast.success("Pedido procesado ✅");
+    
+            // Redirige al dashboard
+            window.location.href = "/dashboard"; // o router.push si usas next/router
+        } catch (err) {
+            console.error(err);
+            toast.error("Error al crear el pedido ❌");
+        }
     }
 
     return (
